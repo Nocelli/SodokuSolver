@@ -1,0 +1,151 @@
+html, body {
+    background-color: #FAFAFA;
+    background-image: url("https://www.indeedcare.com/wp-content/uploads/2014/02/blurred-background-10.jpg");
+  }
+
+  table {
+    border: 2px solid #000000;
+  }
+
+  td {
+    border: 1px solid #000000;
+    text-align: center;
+    vertical-align: middle;  
+  }
+
+  input {
+    color: #00000099;
+    padding: 0;
+    border: 0;
+    text-align: center;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    background-color: #dddddd;
+    outline: none;
+  }
+
+  input:disabled {
+    background-color: #cccccc;
+    color: #000000DD;
+  }
+
+  #cell-0,  #cell-1,  #cell-2  { border-top:    2px solid #000000; }
+  #cell-2,  #cell-11, #cell-20 { border-right:  2px solid #000000; }
+  #cell-18, #cell-19, #cell-20 { border-bottom: 2px solid #000000; }
+  #cell-0,  #cell-9,  #cell-18 { border-left:   2px solid #000000; }
+
+  #cell-3,  #cell-4,  #cell-5  { border-top:    2px solid #000000; }
+  #cell-5,  #cell-14, #cell-23 { border-right:  2px solid #000000; }
+  #cell-21, #cell-22, #cell-23 { border-bottom: 2px solid #000000; }
+  #cell-3,  #cell-12, #cell-21 { border-left:   2px solid #000000; }
+
+  #cell-6,  #cell-7,  #cell-8  { border-top:    2px solid #000000; }
+  #cell-8,  #cell-17, #cell-26 { border-right:  2px solid #000000; }
+  #cell-24, #cell-25, #cell-26 { border-bottom: 2px solid #000000; }
+  #cell-6,  #cell-15, #cell-24 { border-left:   2px solid #000000; }
+
+  #cell-27, #cell-28, #cell-29 { border-top:    2px solid #000000; }
+  #cell-29, #cell-38, #cell-47 { border-right:  2px solid #000000; }
+  #cell-45, #cell-46, #cell-47 { border-bottom: 2px solid #000000; }
+  #cell-27, #cell-36, #cell-45 { border-left:   2px solid #000000; }
+
+  #cell-30, #cell-31, #cell-32 { border-top:    2px solid #000000; }
+  #cell-32, #cell-41, #cell-50 { border-right:  2px solid #000000; }
+  #cell-48, #cell-49, #cell-50 { border-bottom: 2px solid #000000; }
+  #cell-30, #cell-39, #cell-48 { border-left:   2px solid #000000; }
+
+  #cell-33, #cell-34, #cell-35 { border-top:    2px solid #000000; }
+  #cell-35, #cell-44, #cell-53 { border-right:  2px solid #000000; }
+  #cell-51, #cell-52, #cell-53 { border-bottom: 2px solid #000000; }
+  #cell-33, #cell-42, #cell-51 { border-left:   2px solid #000000; }
+
+  #cell-54, #cell-55, #cell-56 { border-top:    2px solid #000000; }
+  #cell-56, #cell-65, #cell-74 { border-right:  2px solid #000000; }
+  #cell-72, #cell-73, #cell-74 { border-bottom: 2px solid #000000; }
+  #cell-54, #cell-63, #cell-72 { border-left:   2px solid #000000; }
+
+  #cell-57, #cell-58, #cell-59 { border-top:    2px solid #000000; }
+  #cell-59, #cell-68, #cell-77 { border-right:  2px solid #000000; }
+  #cell-75, #cell-76, #cell-77 { border-bottom: 2px solid #000000; }
+  #cell-57, #cell-66, #cell-75 { border-left:   2px solid #000000; }
+
+  #cell-60, #cell-61, #cell-62 { border-top:    2px solid #000000; }
+  #cell-62, #cell-71, #cell-80 { border-right:  2px solid #000000; }
+  #cell-78, #cell-79, #cell-80 { border-bottom: 2px solid #000000; }
+  #cell-60, #cell-69, #cell-78 { border-left:   2px solid #000000; }
+
+  .content{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-auto-rows: minmax(100px, auto);
+    grid-template-areas: 
+    ". text ."
+    ". grid ."
+    ". btns .";
+    
+  }
+
+  .buttons {
+    margin-top: 1rem;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: #000000;
+    width: auto;
+    background-color: #eeeeee55;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-area: btns;
+}
+
+button {
+    border: solid;
+    border-color: black;
+    background-color: rgb(155, 155, 155);
+    font-weight: 500;
+    font-size: 32px;
+    border-radius: 2rem;
+    margin: 2rem;
+
+}
+
+.button-solve, .button-clear {
+  display:inline-block;
+  border: 0.1em solid #FFFFFF;
+  margin: 0.3em 0.3em 0.3em 0.3em;
+  border-radius: 0.12em;
+  text-decoration: none;
+  font-weight: 300;
+  color: #FFFFFF;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.button-solve:hover, .button-clear:hover {
+  color:#000000BB;
+  background-color:#FFFFFF;
+  font-size: 2rem;
+}
+
+.buttons:active {
+    color: transparent;
+}
+
+.active {
+    background-color:#FFFFFF !important;
+    color: #000000 !important;
+}
+
+.grid-holder {
+  grid-area: grid;
+}
+
+.title-text {
+  grid-area: text;
+  text-align: center;
+  margin-top: 5rem;
+  font-weight: 600;
+  color: #000000aa;
+  text-shadow: 0 0 5px #115577AA;
+}
+
