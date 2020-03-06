@@ -103,7 +103,7 @@ button {
     border-color: black;
     background-color: rgb(155, 155, 155);
     font-weight: 500;
-    font-size: 32px;
+    font-size: 3rem;
     border-radius: 2rem;
     margin: 2rem;
 
@@ -149,3 +149,19 @@ button {
   text-shadow: 0 0 5px #115577AA;
 }
 
+.disabled, .disabled:hover {
+  background-color: rgb(71, 71, 71) !important;
+  color: rgb(138, 138, 138) !important;
+  font-size: 3rem !important;
+}
+
+@media screen and (max-width: 375px) {
+  
+  input {
+    
+    width: 28px;
+    height: 28px;
+    font-size: 16px;
+    
+  }
+  }
