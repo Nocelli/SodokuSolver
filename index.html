@@ -13,7 +13,7 @@
 
 </head>
 
-<body>
+<body onload="preparePage()">
 
   <div class="container">
     <div class="content">
@@ -22,7 +22,7 @@
         <button class="button-solve" onclick="solveBegin()">
           Solve
         </button>
-        <button class="button-clear" onclick="clearGrid()">
+        <button id="btn-clear" class="button-clear" onclick="clearGrid()">
           Clean
         </button>
       </div>
