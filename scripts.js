@@ -11,7 +11,7 @@ var table = [
 
 var solved = false;
 var time;
-var ilegals = [];
+var ilegals = {};
 
 function preparePage() {
     let cNum = 0;
@@ -19,7 +19,7 @@ function preparePage() {
         for (var j = 0; j < 9; j++) {
             var cell = document.querySelector(`#cell-${cNum}`);
             cell.addEventListener("input", function () {
-                isLegalInput(this)
+                InputChanged(this)
             });
             table[i][j] = cell.value
             cNum++;
@@ -30,6 +30,7 @@ function preparePage() {
 function solveBegin() {
     flipButtonState("btn-clear")
     flipButtonState("btn-solve")
+    console.table(ilegals)
     let cNum = 0;
     for (var i = 0; i < 9; i++) {
         for (var j = 0; j < 9; j++) {
@@ -189,8 +190,14 @@ function flipButtonState(id) {
     document.querySelector(`#${id}`).classList.toggle("disabled");
 }
 
+function InputChanged(element){
+    isLegalInput(element)
+    VerifyIlegals();
+}
+
 function isLegalInput(element) {
     element.classList.add("ilegalElement")
+    btnSolve = document.querySelector("#btn-solve")
     var isLegal
     var line, row, posAux = 0
     var pos = element.id.split('-')[1];
@@ -206,7 +213,9 @@ function isLegalInput(element) {
     }
     if (element.value > 10 || element.value <= 0 || !(Number.isInteger(parseInt(element.value)))) {
         element.value = null;
+        isLegal = true
         element.classList.remove("ilegalElement")
+        delete ilegals[element.id]
     }
     else {
         if ((VerifyLine(line, row, element.value) &&
@@ -215,10 +224,31 @@ function isLegalInput(element) {
             ) || element.value == '')) {
             isLegal = true
             element.classList.remove("ilegalElement")
+            delete ilegals[element.id]
         }
-        else
+        else{
             isLegal = false
+            ilegals[element.id] = element
+        }
     }
     table[line][row] = element.value
+    if (Object.keys(ilegals).length) {
+        btnSolve.disabled = true
+        btnSolve.classList.add("disabled")
+    }
+    else {
+        btnSolve.disabled = false
+        btnSolve.classList.remove("disabled")
+    }
     return isLegal;
+}
+
+function VerifyIlegals()
+{
+    if(Object.keys(ilegals).length)
+    {
+        for(var key in ilegals) {
+            isLegalInput(ilegals[key])
+         }
+    }
 }
