@@ -258,3 +258,7 @@ function VerifyIlegals() {
         }
     }
 }
+
+function generate(){
+    
+}

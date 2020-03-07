@@ -167,9 +167,15 @@ button {
   
   input {
     
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
     font-size: 16px;
     
   }
+  button {
+    font-size: 2rem;
   }
+  .title-text{
+    font-size: 3rem;
+  }
+}
