@@ -109,7 +109,7 @@ button {
 
 }
 
-.button-solve, .button-clear {
+.button-solve, .button-clear, .button-generate {
   display:inline-block;
   border: 0.1em solid #FFFFFF;
   margin: 0.3em 0.3em 0.3em 0.3em;
@@ -121,10 +121,14 @@ button {
   transition: all 0.2s;
 }
 
-.button-solve:hover, .button-clear:hover {
+.button-generate{
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.button-solve:hover, .button-clear:hover, .button-generate:hover {
   color:#000000BB;
   background-color:#FFFFFF;
-  font-size: 2rem;
 }
 
 .buttons:active {

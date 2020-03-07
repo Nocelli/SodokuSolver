@@ -10,7 +10,6 @@ var table = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
 var solved = false;
-var time;
 var ilegals = {};
 
 function preparePage() {
@@ -30,13 +29,13 @@ function preparePage() {
 function solveBegin() {
     flipButtonState("btn-clear")
     flipButtonState("btn-solve")
-    console.table(ilegals)
+    flipButtonState("btn-generate")
     let cNum = 0;
     for (var i = 0; i < 9; i++) {
         for (var j = 0; j < 9; j++) {
             var cell = document.querySelector(`#cell-${cNum}`);
             cNum++;
-            if (cell.value == null) {
+            if (cell.value == null || cell.value == "") {
                 table[i][j] = 0;
             }
             else {
@@ -46,8 +45,15 @@ function solveBegin() {
     }
     showGrid();
     solved = false;
-    time = new Date;
+    isUnsolvable();
     solve();
+}
+
+function isUnsolvable(){
+    setTimeout(function(){
+        if(solved == false)
+            alert("Sem Solução")
+    },2000)
 }
 
 function showGrid() {
@@ -85,7 +91,6 @@ function solve() {
         }
     }
     if (!(solved)) {
-        time = new Date - time;
         solved = true;
         animateGrid();
     }
@@ -138,7 +143,7 @@ function disableGrid() {
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
-}
+  }
 
 async function animateGrid() {
     disableGrid()
@@ -150,17 +155,16 @@ async function animateGrid() {
                 cell.classList.toggle("active");
                 for (var y = 0; y < parseInt(table[i][j]) + 1; y++) {
                     cell.value = y;
-                    await sleep(50);
+                    await sleep(50)
                 }
                 cell.classList.toggle("active");
             }
             cNum++;
         }
     }
-
-    alert("Tempo total: " + time + "ms");
     flipButtonState("btn-clear")
     flipButtonState("btn-solve")
+    flipButtonState("btn-generate")
 }
 
 function cleanGrid() {
@@ -177,11 +181,15 @@ function cleanGrid() {
 }
 
 function clearGrid() {
+    var cPos = 0;
     for (var i = 0; i < 9; i++) {
         for (var j = 0; j < 9; j++) {
             table[i][j] = 0;
+            document.querySelector(`#cell-${cPos}`).classList.remove("ilegalElement")
+            cPos++;
         }
     }
+    document.querySelector("#btn-solve").disabled = false
     showGrid();
 }
 
@@ -190,14 +198,22 @@ function flipButtonState(id) {
     document.querySelector(`#${id}`).classList.toggle("disabled");
 }
 
-function InputChanged(element){
+function InputChanged(element) {
     isLegalInput(element)
     VerifyIlegals();
+    btnSolve = document.querySelector("#btn-solve")
+    if (Object.keys(ilegals).length) {
+        btnSolve.disabled = true
+        btnSolve.classList.add("disabled")
+    }
+    else {
+        btnSolve.disabled = false
+        btnSolve.classList.remove("disabled")
+    }
 }
 
 function isLegalInput(element) {
     element.classList.add("ilegalElement")
-    btnSolve = document.querySelector("#btn-solve")
     var isLegal
     var line, row, posAux = 0
     var pos = element.id.split('-')[1];
@@ -226,29 +242,19 @@ function isLegalInput(element) {
             element.classList.remove("ilegalElement")
             delete ilegals[element.id]
         }
-        else{
+        else {
             isLegal = false
             ilegals[element.id] = element
         }
     }
     table[line][row] = element.value
-    if (Object.keys(ilegals).length) {
-        btnSolve.disabled = true
-        btnSolve.classList.add("disabled")
-    }
-    else {
-        btnSolve.disabled = false
-        btnSolve.classList.remove("disabled")
-    }
     return isLegal;
 }
 
-function VerifyIlegals()
-{
-    if(Object.keys(ilegals).length)
-    {
-        for(var key in ilegals) {
+function VerifyIlegals() {
+    if (Object.keys(ilegals).length) {
+        for (var key in ilegals) {
             isLegalInput(ilegals[key])
-         }
+        }
     }
 }
