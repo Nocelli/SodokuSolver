@@ -166,7 +166,7 @@ function cleanGrid() {
     var cPos = 0;
     for (var i = 0; i < 9; i++) {
         for (var j = 0; j < 9; j++) {
-            var cell = document.querySelector(`#cell-${cNum}`);
+            var cell = document.querySelector(`#cell-${cPos}`);
             if (Number.isInteger(table[i][j])) {
                 cell.value = null;
             }
