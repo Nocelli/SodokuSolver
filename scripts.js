@@ -17,7 +17,7 @@ function preparePage() {
     let cNum = 0;
     for (var i = 0; i < 9; i++) {
         for (var j = 0; j < 9; j++) {
-            var cell = document.getElementById("cell-" + cNum);
+            var cell = document.querySelector(`#cell-${cNum}`);
             cell.addEventListener("input", function () {
                 isLegalInput(this)
             });
@@ -29,10 +29,11 @@ function preparePage() {
 
 function solveBegin() {
     flipButtonState("btn-clear")
+    flipButtonState("btn-solve")
     let cNum = 0;
     for (var i = 0; i < 9; i++) {
         for (var j = 0; j < 9; j++) {
-            var cell = document.getElementById("cell-" + cNum);
+            var cell = document.querySelector(`#cell-${cNum}`);
             cNum++;
             if (cell.value == null) {
                 table[i][j] = 0;
@@ -52,7 +53,7 @@ function showGrid() {
     let cNum = 0;
     for (var i = 0; i < 9; i++) {
         for (var j = 0; j < 9; j++) {
-            var cell = document.getElementById("cell-" + cNum);
+            var cell = document.querySelector(`#cell-${cNum}`);
             if (table[i][j] == 0) {
                 cell.value = null
                 cell.disabled = false;
@@ -140,10 +141,10 @@ function sleep(ms) {
 
 async function animateGrid() {
     disableGrid()
-    var cPos = 0;
+    var cNum = 0;
     for (var i = 0; i < 9; i++) {
         for (var j = 0; j < 9; j++) {
-            var cell = document.getElementById("cell-" + cPos);
+            var cell = document.querySelector(`#cell-${cNum}`);
             if (Number.isInteger(table[i][j])) {
                 cell.classList.toggle("active");
                 for (var y = 0; y < parseInt(table[i][j]) + 1; y++) {
@@ -152,19 +153,20 @@ async function animateGrid() {
                 }
                 cell.classList.toggle("active");
             }
-            cPos++;
+            cNum++;
         }
     }
 
     alert("Tempo total: " + time + "ms");
-    flipButtonState("btn-clear");
+    flipButtonState("btn-clear")
+    flipButtonState("btn-solve")
 }
 
 function cleanGrid() {
     var cPos = 0;
     for (var i = 0; i < 9; i++) {
         for (var j = 0; j < 9; j++) {
-            var cell = document.getElementById("cell-" + cPos);
+            var cell = document.querySelector(`#cell-${cNum}`);
             if (Number.isInteger(table[i][j])) {
                 cell.value = null;
             }
@@ -183,8 +185,8 @@ function clearGrid() {
 }
 
 function flipButtonState(id) {
-    document.getElementById(id).disabled = (!(document.getElementById(id).disabled));
-    document.getElementById(id).classList.toggle("disabled");
+    document.querySelector(`#${id}`).disabled = (!(document.querySelector(`#${id}`).disabled));
+    document.querySelector(`#${id}`).classList.toggle("disabled");
 }
 
 function isLegalInput(element) {
