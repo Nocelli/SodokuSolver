@@ -51,9 +51,13 @@ function solveBegin() {
 
 function isUnsolvable(){
     setTimeout(function(){
-        if(solved == false)
+        if(solved == false){
+            flipButtonState("btn-clear")
+            flipButtonState("btn-solve")
+            flipButtonState("btn-generate")
             alert("Sem Solução")
-    },2000)
+        }
+    },500)
 }
 
 function showGrid() {
@@ -79,7 +83,7 @@ function solve() {
         for (var j = 0; j < 9; j++) {
             if (table[i][j] == 0) {
                 for (var y = 1; y < 10; y++) {
-                    if (VerifyLine(i, j, y) && VerifyRow(i, j, y) && VerifyBox(i, j, y)) {
+                    if (VerifyPos(i, j, y)) {
                         table[i][j] = y;
                         solve();
                         if (!(solved))
@@ -134,6 +138,10 @@ function VerifyBox(line, row, value) {
     return true;
 }
 
+function VerifyPos(line, row, value){
+    return (VerifyLine(line, row, value) && VerifyRow(line, row, value) && VerifyBox(line, row, value))
+}
+
 function disableGrid() {
     var inputs = document.querySelectorAll("input")
     inputs.forEach(element => {
@@ -167,7 +175,7 @@ async function animateGrid() {
     flipButtonState("btn-generate")
 }
 
-function cleanGrid() {
+/* function cleanGrid() {
     var cPos = 0;
     for (var i = 0; i < 9; i++) {
         for (var j = 0; j < 9; j++) {
@@ -178,7 +186,7 @@ function cleanGrid() {
             cPos++;
         }
     }
-}
+} */
 
 function clearGrid() {
     var cPos = 0;
@@ -234,10 +242,7 @@ function isLegalInput(element) {
         delete ilegals[element.id]
     }
     else {
-        if ((VerifyLine(line, row, element.value) &&
-            VerifyRow(line, row, element.value) &&
-            VerifyBox(line, row, element.value
-            ) || element.value == '')) {
+        if (VerifyPos(line, row, element.value) || element.value == '') {
             isLegal = true
             element.classList.remove("ilegalElement")
             delete ilegals[element.id]
@@ -259,6 +264,19 @@ function VerifyIlegals() {
     }
 }
 
-function generate(){
-    
+function generate() {
+    clearGrid()
+    var line, row, value
+    numTips = (Math.round(Math.random() * 18) + 15)
+    do {
+        line = Math.round(Math.random() * 8)
+        row = Math.round(Math.random() * 8)
+        value = (Math.round(Math.random() * 8) + 1)
+
+        if (VerifyPos(line, row, value)) {
+            table[line][row] = value
+            numTips--
+        }
+    } while (numTips)
+    showGrid()
 }

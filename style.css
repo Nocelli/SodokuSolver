@@ -156,7 +156,6 @@ button {
 .disabled, .disabled:hover {
   background-color: rgb(71, 71, 71) !important;
   color: rgb(138, 138, 138) !important;
-  font-size: 3rem !important;
 }
 
 .ilegalElement{
