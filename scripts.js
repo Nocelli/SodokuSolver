@@ -162,9 +162,9 @@ async function animateGrid() {
             var cell = document.querySelector(`#cell-${cNum}`);
             if (Number.isInteger(table[i][j])) {
                 cell.classList.toggle("active");
-                for (var y = 0; y < parseInt(table[i][j]) + 1; y++) {
+                for (var y = 1; y < parseInt(table[i][j]) + 1; y++) {
                     cell.value = y;
-                    await sleep(50)
+                    await sleep(35)
                 }
                 cell.classList.toggle("active");
             }
@@ -278,7 +278,7 @@ function generate() {
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0]]
-    var numTips = (Math.round(Math.random() * 18) + 15)
+    var numTips = (Math.round(Math.random() * 18) + 10)
     do {
         line = Math.round(Math.random() * 8)
         row = Math.round(Math.random() * 8)
@@ -291,7 +291,6 @@ function generate() {
         }
     } while (numTips)
     solve()
-    console.log(gridHints)
     if(solved){
         table = gridHints
         showGrid()
