@@ -47,6 +47,8 @@ function solveBegin() {
     solved = false;
     isUnsolvable();
     solve();
+    if(solved)
+        animateGrid();
 }
 
 function isUnsolvable(){
@@ -96,7 +98,6 @@ function solve() {
     }
     if (!(solved)) {
         solved = true;
-        animateGrid();
     }
 }
 
@@ -265,18 +266,36 @@ function VerifyIlegals() {
 }
 
 function generate() {
+    solved = false
     clearGrid()
-    var line, row, value
-    numTips = (Math.round(Math.random() * 18) + 15)
+    var line, row, value, gridHints = [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0]]
+    var numTips = (Math.round(Math.random() * 18) + 15)
     do {
         line = Math.round(Math.random() * 8)
         row = Math.round(Math.random() * 8)
         value = (Math.round(Math.random() * 8) + 1)
 
         if (VerifyPos(line, row, value)) {
+            gridHints[line][row] = value
             table[line][row] = value
             numTips--
         }
     } while (numTips)
-    showGrid()
+    solve()
+    console.log(gridHints)
+    if(solved){
+        table = gridHints
+        showGrid()
+    }
+    else
+        generate()
 }
