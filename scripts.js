@@ -199,6 +199,7 @@ function clearGrid() {
         }
     }
     document.querySelector("#btn-solve").disabled = false
+    document.querySelector("#btn-solve").classList.remove("disabled")
     showGrid();
 }
 
